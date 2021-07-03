@@ -6,9 +6,9 @@ public class Animal : Decor //INHERITANCE
 {
     AudioClip woof_clip; 
 
-    protected override void Interaction()
+    public override void Interaction()
     {
-       
+        Debug.Log("Animal"); 
     }
 
     // Start is called before the first frame update

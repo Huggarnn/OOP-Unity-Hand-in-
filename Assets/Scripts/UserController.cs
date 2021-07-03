@@ -11,48 +11,38 @@ public class UserController : MonoBehaviour
     private Decor selected = null;
 
     public Vector3 center = Vector3.zero;
-    public float offsetDistance = 8.0f;
-
-    private Vector3 offset;
 
     void Start()
     {
-        offset = transform.position - center;
         marker.SetActive(false);     
     }
 
     public void HandleSelection()
     {
         var ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit; 
-        if(Physics.Raycast(ray, out hit))
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
         {
+
             var unit = hit.collider.GetComponent<Decor>();
             selected = unit;
+            UIManager.Instance.SetSelected(selected); 
 
+             UIManager.Instance.ShowColor(selected.GetColor());
             //var uiInfo = hit.collider.GetComponentInParent<UIManager.IUIInfoContent>();
-           // UIManager.Instance.SetNewInfoContent(uiInfo); 
+            // UIManager.Instance.SetNewInfoContent(uiInfo); 
         }
 
     }
 
     public void HandleAction()
     {
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit; 
-        if(Physics.Raycast(ray, out hit))
-        {
 
-            //make changes
-        }
     }
 
     void Update()
     {
-        Vector2 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        cam.transform.position = cam.transform.position + new Vector3(move.y, 0, -move.x) * rotateSpeed * Time.deltaTime;
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             HandleSelection(); 
         }
@@ -61,7 +51,16 @@ public class UserController : MonoBehaviour
             HandleAction(); 
         }
 
-        MarkerHandling(); 
+        MarkerHandling();
+        PanelHandling(); 
+    }
+
+    private void LateUpdate()
+    {
+        //transform.LookAt(center);
+        transform.RotateAround(center, Vector3.up, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(-1, 0, 0) * Input.GetAxis("Vertical") * rotateSpeed * Time.deltaTime);
+        
     }
 
     void MarkerHandling()
@@ -78,4 +77,18 @@ public class UserController : MonoBehaviour
             marker.transform.localPosition = Vector3.zero; 
         }
     }
+
+    void PanelHandling()
+    {
+        if (selected == null)
+        {
+            UIManager.Instance.HidePanel();
+        }
+        else if (selected != null)
+        {
+            UIManager.Instance.ShowPanel();
+            selected.SetColor(UIManager.Instance.GetColor());
+        }
+    }
+
 }

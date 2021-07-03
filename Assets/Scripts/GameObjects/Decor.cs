@@ -26,17 +26,38 @@ public abstract class Decor : MonoBehaviour
         }
     }
 
-    [SerializeField] Color color;
+    [SerializeField] protected Material material;
 
-    protected void ChangeSize()
+
+    protected void SetSize(float size)
     {
-        transform.localScale = Vector3.one * _size;
+        Size = size; 
+        transform.localScale = Vector3.one * Size;
     }
 
-    protected virtual void ChangeColor()
+    public float GetSize()
+    {
+        Size = transform.localScale.magnitude;
+        return Size; 
+    }
+
+    public void SetColor(Color newColor)
+    {
+        material.color = newColor;
+        if(GetComponent<MeshRenderer>().materials[1] != null)
+            GetComponent<MeshRenderer>().materials[1].color = newColor; 
+        else GetComponent<MeshRenderer>().materials[0].color = newColor;
+    }
+
+    public Color GetColor()
+    {
+        return material.color; 
+    }
+
+    public void GetData()
     {
 
     }
 
-    protected abstract void Interaction(); //POLYMORPHISM
+    public abstract void Interaction(); //POLYMORPHISM
 }

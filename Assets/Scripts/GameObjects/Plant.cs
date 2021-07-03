@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Plant : Decor //INHERITANCE
 {
-    protected override void Interaction()
+    public override void Interaction()
     {
         throw new System.NotImplementedException();
     }

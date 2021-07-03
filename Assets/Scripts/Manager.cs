@@ -5,7 +5,7 @@ using UnityEngine;
 public class Manager<T> : MonoBehaviour where T : MonoBehaviour  
 {
     private static T instance; 
-    public static T Instance
+    public static T Instance //ENCAPSULATION
     {
         get { return instance; }
         set
