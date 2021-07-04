@@ -7,7 +7,7 @@ public class UIManager : Manager<UIManager> // INHERITANCE
 {
     [SerializeField] GameObject panel;
     [SerializeField] FlexibleColorPicker colorPicker;
-    [SerializeField] Slider sizeSlider;
+    [SerializeField] Button InteractButton; 
     private Decor selected; 
 
 
@@ -26,6 +26,16 @@ public class UIManager : Manager<UIManager> // INHERITANCE
         colorPicker.SetColor(color); 
         
     }
+
+    public void ActivateInteractionButton()
+    {
+        if (!InteractButton.IsInteractable()) InteractButton.interactable = true; 
+    }
+    public void DeactivateInteractionButton()
+    {
+        if (InteractButton.IsInteractable()) InteractButton.interactable = false;
+    }
+
 
     public Color GetColor()
     {

@@ -6,18 +6,12 @@ public class Thing : Decor //INHERITANCE
 {
     public override void Interaction()
     {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        gameObject.tag = "Thing"; 
     }
+
 }

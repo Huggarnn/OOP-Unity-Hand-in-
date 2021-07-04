@@ -29,6 +29,9 @@ public class UserController : MonoBehaviour
             if (selected == null) return; 
             UIManager.Instance.SetSelected(selected);
             UIManager.Instance.ShowColor(selected.GetColor());
+
+            if(selected.tag == "Thing") UIManager.Instance.DeactivateInteractionButton();
+            else UIManager.Instance.ActivateInteractionButton();
             //var uiInfo = hit.collider.GetComponentInParent<UIManager.IUIInfoContent>();
             // UIManager.Instance.SetNewInfoContent(uiInfo); 
         }
@@ -54,7 +57,7 @@ public class UserController : MonoBehaviour
     private void LateUpdate()
     {
         //transform.LookAt(center);
-        transform.RotateAround(center, Vector3.up, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime);
+        transform.RotateAround(center, -Vector3.up, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime);
         transform.Rotate(new Vector3(-1, 0, 0) * Input.GetAxis("Vertical") * rotateSpeed * Time.deltaTime);
 
     }
