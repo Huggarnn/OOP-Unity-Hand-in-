@@ -9,13 +9,13 @@ public abstract class Decor : MonoBehaviour
     [SerializeField] protected Material material;
     protected AudioSource audioSource;
 
-    public void SetColor(Color newColor) //Encapsulation
+    public void SetColor(Color newColor) //ENCAPSULATION
     {
         if (indexOfMaterialToChange == -1) indexOfMaterialToChange = IndexOfMaterialToChange(); 
         GetComponent<MeshRenderer>().materials[indexOfMaterialToChange].color = newColor; 
     }
 
-    public Color GetColor() //Encapsulation
+    public Color GetColor() //ENCAPSULATION
     {
         if (indexOfMaterialToChange == -1) indexOfMaterialToChange = IndexOfMaterialToChange();
         return GetComponent<MeshRenderer>().materials[indexOfMaterialToChange].color; 

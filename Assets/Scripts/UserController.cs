@@ -17,31 +17,6 @@ public class UserController : MonoBehaviour
         marker.SetActive(false);
     }
 
-    public void HandleSelection()
-    {
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-
-            var unit = hit.collider.GetComponent<Decor>();
-            selected = unit;
-            if (selected == null) return; 
-            UIManager.Instance.SetSelected(selected);
-            UIManager.Instance.ShowColor(selected.GetColor());
-
-            if(selected.tag == "Thing") UIManager.Instance.DeactivateInteractionButton();
-            else UIManager.Instance.ActivateInteractionButton();
-            //var uiInfo = hit.collider.GetComponentInParent<UIManager.IUIInfoContent>();
-            // UIManager.Instance.SetNewInfoContent(uiInfo); 
-        }
-
-    }
-
-    public void HandleAction()
-    {
-
-    }
 
     void Update()
     {
@@ -50,15 +25,32 @@ public class UserController : MonoBehaviour
             HandleSelection();
         }
 
-        MarkerHandling();
-        PanelHandling();
+        MarkerHandling(); //ABSTRACION
+        PanelHandling(); 
     }
 
     private void LateUpdate()
     {
-        //transform.LookAt(center);
         transform.RotateAround(center, -Vector3.up, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime);
         transform.Rotate(new Vector3(-1, 0, 0) * Input.GetAxis("Vertical") * rotateSpeed * Time.deltaTime);
+
+    }
+    public void HandleSelection() //ABSTRACTION
+    {
+        var ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+
+            var unit = hit.collider.GetComponent<Decor>();
+            selected = unit;
+            if (selected == null) return;
+            UIManager.Instance.SetSelected(selected);
+            UIManager.Instance.ShowColor(selected.GetColor());
+
+            if (selected.tag == "Thing") UIManager.Instance.DeactivateInteractionButton();
+            else UIManager.Instance.ActivateInteractionButton();
+        }
 
     }
 

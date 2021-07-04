@@ -6,12 +6,11 @@ public class Animal : Decor //INHERITANCE
 {
     [SerializeField] AudioClip woof_clip; 
 
-    public override void Interaction()
+    public override void Interaction() //POLYMORPHISM
     {
         audioSource.Play(); 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         CreateAudioSource();

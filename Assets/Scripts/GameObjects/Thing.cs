@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Thing : Decor //INHERITANCE
 {
-    public override void Interaction()
+    public override void Interaction() //POLYMORPHISM
     {
         
     }

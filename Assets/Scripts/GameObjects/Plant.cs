@@ -5,7 +5,7 @@ using UnityEngine;
 public class Plant : Decor //INHERITANCE
 {
     [SerializeField] AudioClip rustle_clip;
-    public override void Interaction()
+    public override void Interaction() //POLYMORPHISM
     {
         audioSource.Play(); 
     }

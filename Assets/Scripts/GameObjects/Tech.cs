@@ -12,11 +12,10 @@ public class Tech : Decor //INHERITANCE
     Material[] matsOff = new Material[2];
 
     [SerializeField] AudioClip click_clip; 
-    //[SerializeField] Material interactionMaterial;
 
     bool isOn = false; 
 
-    public override void Interaction()
+    public override void Interaction() //POLYMORPHISM
     {
         Debug.Log("Tech");
         if (isOn)
@@ -39,7 +38,7 @@ public class Tech : Decor //INHERITANCE
 
     void Start()
     {
-        Init();
+        Init(); //ABSTRACTION
     }
 
     private void Init()
