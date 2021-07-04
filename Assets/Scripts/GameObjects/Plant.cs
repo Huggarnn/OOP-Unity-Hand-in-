@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class Plant : Decor //INHERITANCE
 {
+    [SerializeField] AudioClip rustle_clip;
     public override void Interaction()
     {
-        throw new System.NotImplementedException();
+        audioSource.Play(); 
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        CreateAudioSource();
+        audioSource.clip = rustle_clip; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

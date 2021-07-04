@@ -14,7 +14,7 @@ public class UserController : MonoBehaviour
 
     void Start()
     {
-        marker.SetActive(false);     
+        marker.SetActive(false);
     }
 
     public void HandleSelection()
@@ -26,9 +26,9 @@ public class UserController : MonoBehaviour
 
             var unit = hit.collider.GetComponent<Decor>();
             selected = unit;
-            UIManager.Instance.SetSelected(selected); 
-
-             UIManager.Instance.ShowColor(selected.GetColor());
+            if (selected == null) return; 
+            UIManager.Instance.SetSelected(selected);
+            UIManager.Instance.ShowColor(selected.GetColor());
             //var uiInfo = hit.collider.GetComponentInParent<UIManager.IUIInfoContent>();
             // UIManager.Instance.SetNewInfoContent(uiInfo); 
         }
@@ -44,15 +44,11 @@ public class UserController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            HandleSelection(); 
-        }
-        else if(selected != null && Input.GetMouseButtonDown(1))
-        {
-            HandleAction(); 
+            HandleSelection();
         }
 
         MarkerHandling();
-        PanelHandling(); 
+        PanelHandling();
     }
 
     private void LateUpdate()
@@ -60,21 +56,21 @@ public class UserController : MonoBehaviour
         //transform.LookAt(center);
         transform.RotateAround(center, Vector3.up, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime);
         transform.Rotate(new Vector3(-1, 0, 0) * Input.GetAxis("Vertical") * rotateSpeed * Time.deltaTime);
-        
+
     }
 
     void MarkerHandling()
     {
-        if(selected == null && marker.activeInHierarchy)
+        if (selected == null && marker.activeInHierarchy)
         {
             marker.SetActive(false);
-            marker.transform.SetParent(null); 
+            marker.transform.SetParent(null);
         }
-        else if(selected != null && marker.transform.parent != selected.transform)
+        else if (selected != null && marker.transform.parent != selected.transform)
         {
             marker.SetActive(true);
             marker.transform.SetParent(selected.transform, false);
-            marker.transform.localPosition = Vector3.zero; 
+            marker.transform.localPosition = Vector3.zero;
         }
     }
 

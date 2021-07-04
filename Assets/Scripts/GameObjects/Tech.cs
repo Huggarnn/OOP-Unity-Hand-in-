@@ -10,6 +10,8 @@ public class Tech : Decor //INHERITANCE
 
     Material[] matsOn = new Material[2];
     Material[] matsOff = new Material[2];
+
+    [SerializeField] AudioClip click_clip; 
     //[SerializeField] Material interactionMaterial;
 
     bool isOn = false; 
@@ -29,23 +31,26 @@ public class Tech : Decor //INHERITANCE
             isOn = true;
             light.gameObject.SetActive(true);
             renderer.materials = matsOff; 
-            Debug.Log(renderer.materials[1]);
+            Debug.Log(renderer.materials[1]);      
         }
+
+        audioSource.Play();
     }
 
     void Start()
+    {
+        Init();
+    }
+
+    private void Init()
     {
         renderer = GetComponent<MeshRenderer>();
         matsOn[0] = renderer.materials[0];
         matsOn[1] = material;
         matsOff[0] = renderer.materials[0];
-        matsOff[1] = isOnMat; 
+        matsOff[1] = isOnMat;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CreateAudioSource(); 
+        if (click_clip != null) audioSource.clip = click_clip;
     }
 }

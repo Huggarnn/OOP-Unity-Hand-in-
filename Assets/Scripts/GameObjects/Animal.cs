@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class Animal : Decor //INHERITANCE
 {
-    AudioClip woof_clip; 
+    [SerializeField] AudioClip woof_clip; 
 
     public override void Interaction()
     {
-        Debug.Log("Animal"); 
+        audioSource.Play(); 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CreateAudioSource();
+        audioSource.clip = woof_clip; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

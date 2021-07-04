@@ -14,7 +14,6 @@ public class UIManager : Manager<UIManager> // INHERITANCE
     public void ShowPanel()
     {
         panel.gameObject.SetActive(true);
-        Debug.Log(colorPicker.color); 
     }
 
     public void HidePanel()

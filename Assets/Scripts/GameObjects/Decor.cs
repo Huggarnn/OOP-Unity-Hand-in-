@@ -4,59 +4,40 @@ using UnityEngine;
 
 public abstract class Decor : MonoBehaviour
 {
-    protected const float MINSIZE = 0.1f;
-    protected const float MAXSIZE = 3.0f; 
-    private float _size;
-    [SerializeField] public float Size //ENCAPSULATION
-    {
-        get { return _size; }
-        set 
-        {
-            if (value < MINSIZE)
-            {
-                Debug.LogWarning("size cannot be smaller than minimum size");
-                _size = MINSIZE;
-            }
-            else if (value > MAXSIZE)
-            {
-                Debug.LogWarning("size cannot be bigger than maximum size");
-                _size = MAXSIZE;
-            }
-            else _size = value;            
-        }
-    }
+    protected int indexOfMaterialToChange = -1;
 
     [SerializeField] protected Material material;
-
-
-    protected void SetSize(float size)
-    {
-        Size = size; 
-        transform.localScale = Vector3.one * Size;
-    }
-
-    public float GetSize()
-    {
-        Size = transform.localScale.magnitude;
-        return Size; 
-    }
+    protected AudioSource audioSource;
 
     public void SetColor(Color newColor)
     {
-        material.color = newColor;
-        if(GetComponent<MeshRenderer>().materials[1] != null)
-            GetComponent<MeshRenderer>().materials[1].color = newColor; 
-        else GetComponent<MeshRenderer>().materials[0].color = newColor;
+        if (indexOfMaterialToChange == -1) indexOfMaterialToChange = IndexOfMaterialToChange(); 
+        GetComponent<MeshRenderer>().materials[indexOfMaterialToChange].color = newColor; 
     }
 
     public Color GetColor()
     {
-        return material.color; 
+        if (indexOfMaterialToChange == -1) indexOfMaterialToChange = IndexOfMaterialToChange();
+        return GetComponent<MeshRenderer>().materials[indexOfMaterialToChange].color; 
     }
 
-    public void GetData()
+    protected int IndexOfMaterialToChange()
     {
+        var r = GetComponent<MeshRenderer>();
+        if (r.materials.Length == 1) return 0; 
+        for (int i = 0; i < r.materials.Length; i++)
+        {
+            if (r.materials[i].name.Equals(material.name + " (Instance)"))
+            {
+                return i;
+            }
+        }
+        return 0; 
+    }
 
+    protected void CreateAudioSource()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public abstract void Interaction(); //POLYMORPHISM
