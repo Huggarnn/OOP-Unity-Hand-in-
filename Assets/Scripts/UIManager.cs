@@ -7,8 +7,15 @@ public class UIManager : Manager<UIManager> // INHERITANCE
 {
     [SerializeField] GameObject panel;
     [SerializeField] FlexibleColorPicker colorPicker;
-    [SerializeField] Button InteractButton; 
-    private Decor selected; 
+    [SerializeField] Button InteractButton;
+    private Decor selected;
+
+    [SerializeField] GameObject startScreen;
+
+    public void RemoveStartScreen()
+    {
+        startScreen.gameObject.SetActive(false); 
+    }
 
 
     public void ShowPanel()
